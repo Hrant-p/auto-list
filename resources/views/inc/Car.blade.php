@@ -1,0 +1,5 @@
+<?php
+
+@section('content')
+
+@endsection

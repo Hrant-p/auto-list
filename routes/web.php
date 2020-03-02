@@ -12,5 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('App');
-});
+    return view('layouts.App');
+})->name('home');
+
+Route::get('/cars', 'CarController@allCars')->name('get-all-cars');
+
+Route::get('/add-car', function () {
+    return view('AddCar');
+})->name('car-form');
+
+Route::post('/add-car', 'CarController@addCar')->name('post-car-data');
