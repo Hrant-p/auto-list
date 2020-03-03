@@ -16,7 +16,7 @@ class CarController extends Controller
 
     public function add()
     {
-        return view('AddCar');
+        return view('add-car');
     }
 
     public function store(Request $request)
@@ -28,7 +28,7 @@ class CarController extends Controller
         Car::create($data);
 
         return redirect('/')->with([
-            'success' => 'Success!'
+            'success' => 'Car info successfully added!'
         ]);
     }
 

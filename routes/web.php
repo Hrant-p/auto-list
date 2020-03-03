@@ -11,14 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.App');
-})->name('home');
+Route::get('/', 'CarController@index')->name('get-all-cars');
 
-Route::get('/cars', 'CarController@allCars')->name('get-all-cars');
+Route::get('/add-car', 'CarController@add')->name('car-add-form');
+Route::post('/add-car', 'CarController@store')->name('add-new-car');
 
-Route::get('/add-car', 'CarController@add')->name('car-form');
-Route::post('/add-car', 'CarController@store')->name('post-car-data');
-
-Route::get('/car/edt/{id}', 'CarController@store')->name('post-car-data');
-Route::put('/car/update/{id}', 'CarController@store')->name('post-car-data');
+Route::get('/car/edit/{id}', 'CarController@store')->name('edit-car');
+Route::put('/car/update/{id}', 'CarController@store')->name('update-car');

@@ -1,4 +1,4 @@
-@extends('layouts.App')
+@extends('layouts.app')
 
 @section('title-block')
     Add Cars
@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-12">
             <h1>Add Cars</h1>
-            <form action="{{ route('post-car-data') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('add-new-car') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="make">Make</label>
@@ -63,12 +63,12 @@
                     >
                 </div>
                 <div class="form-group">
-                    <label for="img">img</label>
+                    <label for="img">Select Image File</label>
                     <input
                         type="file"
                         name="img"
                         value=""
-                        placeholder="img"
+                        placeholder="Select Image File"
                         id="img"
                         class="form-control"
                     >

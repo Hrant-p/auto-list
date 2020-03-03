@@ -7,12 +7,11 @@
         <title>@yield('title-block')</title>
     </head>
     <body>
-        @include('inc.Header')
-        {{ //ToDo Add error and success messages }}
-
+        @include('inc.header')
+        @include('inc.messages')
         <div class="container">
             @yield('content')
         </div>
-        @include('inc.Footer')
+        @include('inc.footer')
     </body>
 </html>
