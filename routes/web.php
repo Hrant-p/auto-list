@@ -17,8 +17,8 @@ Route::get('/', function () {
 
 Route::get('/cars', 'CarController@allCars')->name('get-all-cars');
 
-Route::get('/add-car', function () {
-    return view('AddCar');
-})->name('car-form');
+Route::get('/add-car', 'CarController@add')->name('car-form');
+Route::post('/add-car', 'CarController@store')->name('post-car-data');
 
-Route::post('/add-car', 'CarController@addCar')->name('post-car-data');
+Route::get('/car/edt/{id}', 'CarController@store')->name('post-car-data');
+Route::put('/car/update/{id}', 'CarController@store')->name('post-car-data');

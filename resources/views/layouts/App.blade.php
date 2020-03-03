@@ -8,10 +8,11 @@
     </head>
     <body>
         @include('inc.Header')
-            @if(Request::is('/add-car'))
-                @include('AddCar')
-            @endif
+        {{ //ToDo Add error and success messages }}
+
+        <div class="container">
             @yield('content')
+        </div>
         @include('inc.Footer')
     </body>
 </html>

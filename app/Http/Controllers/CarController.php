@@ -7,25 +7,45 @@ use Illuminate\Http\Request;
 
 class CarController extends Controller
 {
-    public function allCars () {
-        $car = new Car;
-        dd($car->all());
+    public function index()
+    {
+        $cars = Car::all();
+
+        return view('index', compact('cars'));
     }
 
-    public function addCar() {
+    public function add()
+    {
+        return view('AddCar');
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->all();
+
+        //Todo Add validation
+
+        Car::create($data);
+
+        return redirect('/')->with([
+            'success' => 'Success!'
+        ]);
+    }
+
+
+    public function showCar($id)
+    {
 
     }
 
-    public function showCar() {
+
+    public function deleteCar($id)
+    {
 
     }
 
-
-    public function deleteCar() {
-
-    }
-
-    public function updateCar() {
+    public function updateCar(Request $request, $id)
+    {
 
     }
 }

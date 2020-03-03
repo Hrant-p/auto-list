@@ -1,5 +1,3 @@
-<?php
-
 @section('content')
 
 @endsection
