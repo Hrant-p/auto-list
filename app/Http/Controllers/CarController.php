@@ -33,19 +33,43 @@ class CarController extends Controller
     }
 
 
-    public function showCar($id)
+    public function show($id)
     {
 
     }
 
 
-    public function deleteCar($id)
+    public function delete($id)
     {
 
     }
 
-    public function updateCar(Request $request, $id)
+    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'model_id' => 'required',
+            'name' => 'required',
+            'year' => 'required',
+            'price' => 'required',
+        ]);
 
+        $car_data = Car::find($id);
+        $car_data->model_id = $request->input('model_id');
+        $car_data->model_id = $request->input('name');
+        $car_data->model_id = $request->input('year');
+        $car_data->model_id = $request->input('price');
+        if ($request->input('img')) {
+            $car_data->model_id = $request->input('img');
+        }
+        $car_data->save();
+        return redirect('/')->with([
+            'success' => 'Car info successfully updated'
+            ]);
+    }
+
+    public function edit(Request $req, $id)
+    {
+        $car = Car::find($id);
+        return view('edit-car', compact('car'));
     }
 }

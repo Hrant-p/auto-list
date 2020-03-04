@@ -16,5 +16,6 @@ Route::get('/', 'CarController@index')->name('get-all-cars');
 Route::get('/add-car', 'CarController@add')->name('car-add-form');
 Route::post('/add-car', 'CarController@store')->name('add-new-car');
 
-Route::get('/car/edit/{id}', 'CarController@store')->name('edit-car');
-Route::put('/car/update/{id}', 'CarController@store')->name('update-car');
+Route::get('/car/edit/{id}', 'CarController@edit')->name('edit-car');
+Route::put('/car/update/{id}', 'CarController@update')->name('update-car');
+Route::delete('/car/delete/{id}', 'CarController@store')->name('delete-car');

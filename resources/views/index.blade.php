@@ -13,19 +13,20 @@
                     <th scope="col">#</th>
                     <th scope="col">Car Image</th>
                     <th scope="col">Make</th>
-                    <th scope="col">Name</th>
+                    <th scope="col">Model</th>
                     <th scope="col">Year</th>
                     <th scope="col">Price</th>
                 </tr>
                 </thead>
                 <tbody>
-                @if($cars->count() > 0)
+                @if($cars->count())
                     @foreach($cars as $car)
                         <tr>
-                            <th scope="row"> {{$car->model_id}}</th>
+                            <td>{{$car->id}}</td>
                             <td>
                                 <img src={{$car->img}} alt="car_image" class="img-responsive">
                             </td>
+                            <th scope="row"> {{$car->model_id}}</th>
                             <td>{{$car->name}}</td>
                             <td>{{$car->year}}</td>
                             <td>{{$car->price}}</td>
