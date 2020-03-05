@@ -9,17 +9,19 @@
         <div class="col-12">
             <h1>Add Cars</h1>
             <form
-                action="{{ action('CarController@update', $car->id) }}"
-                method="put"
+                action="{{ route('update-car', $car->id) }}"
+                method="post"
                 enctype="multipart/form-data"
             >
                 @csrf
+                @method('put')
                 <div class="form-group">
                     <label for="make">Make</label>
                     <select
                         name="model_id"
                         id="make"
                         class="form-control"
+                        required
                     >
                         <option selected>{{$car->model_id}}</option>
                         <option value="1">Mercedes</option>
@@ -37,11 +39,13 @@
                     <label for="name">Name</label>
                     <input
                         type="text"
+                        id="name"
+                        class="form-control"
                         name="name"
                         value="{{$car->name}}"
                         placeholder="Name"
-                        id="name"
-                        class="form-control"
+                        minlength="2"
+                        required
                     >
                 </div>
                 <div class="form-group">
@@ -53,6 +57,8 @@
                         placeholder="Year"
                         id="year"
                         class="form-control"
+                        minlength="4"
+                        required
                     >
                 </div>
                 <div class="form-group">
@@ -64,6 +70,7 @@
                         placeholder="Price"
                         id="price"
                         class="form-control"
+                        required
                     >
                 </div>
                 <div class="form-group">

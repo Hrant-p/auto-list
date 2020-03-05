@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Car;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class CarController extends Controller
 {
@@ -23,7 +24,12 @@ class CarController extends Controller
     {
         $data = $request->all();
 
-        //Todo Add validation
+        $this->validate($request, [
+            'model_id' => 'required',
+            'name' => 'required',
+            'year' => 'required',
+            'price' => 'required',
+        ]);
 
         Car::create($data);
 
@@ -35,13 +41,18 @@ class CarController extends Controller
 
     public function show($id)
     {
-
+        $car = Car::findOrFail($id);
+        return view('show-car', compact('car'));
     }
 
 
     public function delete($id)
     {
-
+        $current_car = Car::findOrFail($id);
+        $current_car->delete();
+        return redirect('/')->with([
+            'success' => 'Car successfully deleted'
+        ]);
     }
 
     public function update(Request $request, $id)
@@ -53,18 +64,17 @@ class CarController extends Controller
             'price' => 'required',
         ]);
 
-        $car_data = Car::find($id);
-        $car_data->model_id = $request->input('model_id');
-        $car_data->model_id = $request->input('name');
-        $car_data->model_id = $request->input('year');
-        $car_data->model_id = $request->input('price');
+        $data = $request->except('img', '_token', '_method');
+
         if ($request->input('img')) {
-            $car_data->model_id = $request->input('img');
+            $data['img'] = $request->input('img');
         }
-        $car_data->save();
+
+        Car::where('id', $id)->update($data);
+
         return redirect('/')->with([
             'success' => 'Car info successfully updated'
-            ]);
+        ]);
     }
 
     public function edit(Request $req, $id)
