@@ -19,7 +19,6 @@ class CreateCarsTable extends Migration
             $table->string('img')->default(null);
             $table->date('year');
             $table->integer('price');
-            $table->integer('user_id');
             $table->integer('model_id');
             $table->timestamps();
         });

@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::redirect('/', '/login');
 Route::get('/cars', 'CarController@index')->name('get-all-cars');
 
@@ -21,6 +22,6 @@ Route::get('/car/edit/{id}', 'CarController@edit')->name('edit-car');
 Route::put('/car/update/{id}', 'CarController@update')->name('update-car');
 Route::delete('/car/delete/{id}', 'CarController@delete')->name('delete-car');
 
-Auth::routes();
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-//Route::get('/home', 'HomeController@index')->name('home');
+Auth::routes();

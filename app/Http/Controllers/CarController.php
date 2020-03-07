@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Car;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -22,9 +21,8 @@ class CarController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return Renderable
+     * @return \Illuminate\Contracts\Support\Renderable
      */
-
     public function index()
     {
         $cars = Car::all();
@@ -39,8 +37,9 @@ class CarController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->all();
-
+        $data = array_merge($request->all(), [
+            'user_id' => auth()->user()->id
+        ]);
         $this->validate($request, [
             'model_id' => 'required',
             'name' => 'required',

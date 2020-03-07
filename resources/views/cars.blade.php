@@ -5,17 +5,6 @@
 @endsection
 
 @section('content')
-    <div class="card">
-        <div class="card-header">Dashboard</div>
-        <div class="card-body">
-            @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
-                </div>
-            @endif
-            You are logged in!
-        </div>
-    </div>
     <div class="row justify-content-center">
         <div class="col-12">
             @if($cars->count())
@@ -28,9 +17,8 @@
                         <th scope="col">Model</th>
                         <th scope="col">Year</th>
                         <th scope="col">Price</th>
-                        <th scope="col">Show Details</th>
-                        <th scope="col">Edit</th>
-                        <th scope="col">Delete</th>
+                        <th scope="col">Published by</th>
+                        <th scope="col">Details</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -44,6 +32,7 @@
                             <td scope="row">{{$car->name}}</td>
                             <td scope="row">{{$car->year}}</td>
                             <td scope="row">{{$car->price}}</td>
+                            <td scope="row">{{$car->user_id}}</td>
                             <td scope="row">
                                 <a
                                     href="{{route('show-car', $car->id)}}"
@@ -51,29 +40,6 @@
                                 >
                                     Details
                                 </a>
-                            </td>
-                            <td scope="row">
-                                <a
-                                    href="{{route('edit-car', $car->id)}}"
-                                    class="btn btn-info"
-                                >
-                                    Edit
-                                </a>
-                            </td>
-                            <td>
-                                <form
-                                    action="{{route('delete-car', $car->id)}}"
-                                    method="post"
-                                    enctype="multipart/form-data"
-                                >
-                                    @csrf
-                                    @method('delete')
-                                    <button
-                                        type="submit"
-                                        class="btn btn-danger">
-                                        Delete
-                                    </button>
-                                </form>
                             </td>
                         </tr>
                     @endforeach
