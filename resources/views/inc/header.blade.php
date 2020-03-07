@@ -29,8 +29,6 @@
                         </li>
                     @endif
                 @else
-                    <a class="p-2 text-dark" href={{ route('car-add-form') }}>Add Car</a>
-
                     <li class="nav-item dropdown">
 
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"

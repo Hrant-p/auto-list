@@ -2,7 +2,10 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header">Dashboard</div>
+        <div class="card-header">
+            <h3>Dashboard</h3>
+            <a class="btn btn-outline-primary bg-light" href={{ route('car-add-form') }}>Add Car</a>
+        </div>
         <div class="card-body">
             @if (session('status'))
                 <div class="alert alert-success" role="alert">
@@ -24,48 +27,48 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($cars as $car)
-                    <tr>
-                        <td>
-                            <img src={{$car->img}} alt="car_image" class="img-responsive">
-                        </td>
-                        <th scope="row"> {{$car->model_id}}</th>
-                        <td scope="row">{{$car->name}}</td>
-                        <td scope="row">{{$car->year}}</td>
-                        <td scope="row">{{$car->price}}</td>
-                        <td scope="row">
-                            <a
-                                href="{{route('show-car', $car->id)}}"
-                                class="btn btn-info"
-                            >
-                                Details
-                            </a>
-                        </td>
-                        <td scope="row">
-                            <a
-                                href="{{route('edit-car', $car->id)}}"
-                                class="btn btn-info"
-                            >
-                                Edit
-                            </a>
-                        </td>
-                        <td>
-                            <form
-                                action="{{route('delete-car', $car->id)}}"
-                                method="post"
-                                enctype="multipart/form-data"
-                            >
-                                @csrf
-                                @method('delete')
-                                <button
-                                    type="submit"
-                                    class="btn btn-danger">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
+                    @foreach($cars as $car)
+                        <tr>
+                            <td>
+                                <img src={{$car->img}} alt="car_image" class="img-responsive">
+                            </td>
+                            <th scope="row"> {{$car->model_id}}</th>
+                            <td scope="row">{{$car->name}}</td>
+                            <td scope="row">{{$car->year}}</td>
+                            <td scope="row">{{$car->price}}</td>
+                            <td scope="row">
+                                <a
+                                    href="{{route('car-details', $car->id)}}"
+                                    class="btn btn-info"
+                                >
+                                    Details
+                                </a>
+                            </td>
+                            <td scope="row">
+                                <a
+                                    href="{{route('edit-car', $car->id)}}"
+                                    class="btn btn-info"
+                                >
+                                    Edit
+                                </a>
+                            </td>
+                            <td>
+                                <form
+                                    action="{{route('delete-car', $car->id)}}"
+                                    method="post"
+                                    enctype="multipart/form-data"
+                                >
+                                    @csrf
+                                    @method('delete')
+                                    <button
+                                        type="submit"
+                                        class="btn btn-danger">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
                 @else
                     <h5 class="card-title">Yuo dont have announcements</h5>
                     <a href="{{route('car-add-form')}}" class="btn btn-primary">

@@ -3,15 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
-{
+class DashboardController extends Controller {
+
     /**
-     * Display a listing of the resource.
+     * Create a new controller instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return Renderable
+     */
+
     public function index()
     {
         $user_id = auth()->user()->id;

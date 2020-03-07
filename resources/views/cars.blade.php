@@ -32,10 +32,10 @@
                             <td scope="row">{{$car->name}}</td>
                             <td scope="row">{{$car->year}}</td>
                             <td scope="row">{{$car->price}}</td>
-                            <td scope="row">{{$car->user_id}}</td>
+                            <td scope="row">{{$car->user->name}}</td>
                             <td scope="row">
                                 <a
-                                    href="{{route('show-car', $car->id)}}"
+                                    href="{{route('car-details', $car->id)}}"
                                     class="btn btn-info"
                                 >
                                     Details

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Car;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -15,13 +16,14 @@ class CarController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => [
+            'index', 'show'
+        ]]);
     }
 
     /**
      * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
     public function index()
     {
@@ -30,6 +32,10 @@ class CarController extends Controller
         return view('cars', compact('cars'));
     }
 
+    /**
+     * Show the application dashboard.
+     * @return Renderable
+     */
     public function add()
     {
         return view('add-car');
@@ -58,13 +64,19 @@ class CarController extends Controller
     public function show($id)
     {
         $car = Car::findOrFail($id);
-        return view('show-car', compact('car'));
+        return view('car-details', compact('car'));
     }
 
 
     public function delete($id)
     {
         $current_car = Car::findOrFail($id);
+
+        if (auth()->user()->id !== $current_car->user_id) {
+            return redirect('/cars')->with([
+                'error' => 'Unauthorized Page'
+            ]);
+        }
         $current_car->delete();
         return redirect('/cars')->with([
             'success' => 'Car successfully deleted'
@@ -96,6 +108,13 @@ class CarController extends Controller
     public function edit(Request $req, $id)
     {
         $car = Car::find($id);
+
+        if (auth()->user()->id !== $car->user_id) {
+            return redirect('/cars')->with([
+                'error' => 'Unauthorized Page'
+            ]);
+        }
+
         return view('edit-car', compact('car'));
     }
 }
