@@ -3,16 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Car;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class CarController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return Renderable
+     */
+
     public function index()
     {
         $cars = Car::all();
 
-        return view('index', compact('cars'));
+        return view('cars', compact('cars'));
     }
 
     public function add()
@@ -33,7 +50,7 @@ class CarController extends Controller
 
         Car::create($data);
 
-        return redirect('/')->with([
+        return redirect('/cars')->with([
             'success' => 'Car info successfully added!'
         ]);
     }
@@ -50,7 +67,7 @@ class CarController extends Controller
     {
         $current_car = Car::findOrFail($id);
         $current_car->delete();
-        return redirect('/')->with([
+        return redirect('/cars')->with([
             'success' => 'Car successfully deleted'
         ]);
     }
@@ -72,7 +89,7 @@ class CarController extends Controller
 
         Car::where('id', $id)->update($data);
 
-        return redirect('/')->with([
+        return redirect('/cars')->with([
             'success' => 'Car info successfully updated'
         ]);
     }

@@ -5,9 +5,20 @@
 @endsection
 
 @section('content')
-    <div class="row">
+    <div class="card">
+        <div class="card-header">Dashboard</div>
+        <div class="card-body">
+            @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
+            You are logged in!
+        </div>
+    </div>
+    <div class="row justify-content-center">
         <div class="col-12">
-                @if($cars->count())
+            @if($cars->count())
                 <table class="table">
                     <thead>
                     <tr>
@@ -66,23 +77,23 @@
                             </td>
                         </tr>
                     @endforeach
-                @else
-                    <div class="card text-center">
-                        <div class="card-header">
+                    @else
+                        <div class="card text-center">
+                            <div class="card-header">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">There is no cars</h5>
+                                <p class="card-text">***</p>
+                                <a href="{{route('car-add-form')}}" class="btn btn-primary">
+                                    Load your car announcement
+                                </a>
+                            </div>
+                            <div class="card-footer text-muted">
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title">There is no cars</h5>
-                            <p class="card-text">***</p>
-                            <a href="{{route('car-add-form')}}" class="btn btn-primary">
-                                Load your car announcement
-                            </a>
-                        </div>
-                        <div class="card-footer text-muted">
-                        </div>
-                    </div>
-                @endif
-               </tbody>
-            </table>
+                    @endif
+                    </tbody>
+                </table>
         </div>
     </div>
 @endsection
