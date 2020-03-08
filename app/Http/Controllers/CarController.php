@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Car;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class CarController extends Controller
@@ -43,14 +44,26 @@ class CarController extends Controller
 
     public function store(Request $request)
     {
-        $data = array_merge($request->all(), [
-            'user_id' => auth()->user()->id
+        if ($request->hasFile('img')) {
+            $file = $request->file('img');
+            $fileNameWithExt = $file->getClientOriginalName();
+            $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $fileNameToStore = $filename.time().'.'.$file->getClientOriginalExtension();
+            $file->storeAs('public/car_image', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'no_image.jpg';
+        }
+
+        $data = array_merge($request->except('img'), [
+            'user_id' => auth()->user()->id,
+            'img' => $fileNameToStore
         ]);
         $this->validate($request, [
             'model_id' => 'required',
             'name' => 'required',
             'year' => 'required',
             'price' => 'required',
+            'img' => 'image|nullable|max:1999'
         ]);
 
         Car::create($data);
@@ -59,7 +72,6 @@ class CarController extends Controller
             'success' => 'Car info successfully added!'
         ]);
     }
-
 
     public function show($id)
     {
@@ -77,7 +89,13 @@ class CarController extends Controller
                 'error' => 'Unauthorized Page'
             ]);
         }
+
+        if ($current_car->img != 'no_image.jpg') {
+            Storage::delete('public/car_image/'.$current_car->img);
+        }
+
         $current_car->delete();
+
         return redirect('/cars')->with([
             'success' => 'Car successfully deleted'
         ]);
@@ -94,8 +112,13 @@ class CarController extends Controller
 
         $data = $request->except('img', '_token', '_method');
 
-        if ($request->input('img')) {
-            $data['img'] = $request->input('img');
+        if ($request->hasFile('img')) {
+            $file = $request->file('img');
+            $fileNameWithExt = $file->getClientOriginalName();
+            $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $fileNameToStore = $filename.time().'.'.$file->getClientOriginalExtension();
+            $file->storeAs('public/car_image', $fileNameToStore);
+            $data['img'] = $fileNameToStore;
         }
 
         Car::where('id', $id)->update($data);

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title-block')
-    Add Cars
+    Create Cars Announcements
 @endsection
 
 @section('content')

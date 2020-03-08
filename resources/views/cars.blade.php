@@ -26,7 +26,13 @@
                         <tr>
                             <td>{{$car->id}}</td>
                             <td>
-                                <img src={{$car->img}} alt="car_image" class="img-responsive">
+                                <img
+                                    src="storage/car_image/{{$car->img}}"
+                                    alt="cover_image"
+                                    class="img-fluid img-thumbnail"
+                                    height="200"
+                                    width="200"
+                                >
                             </td>
                             <th scope="row"> {{$car->model_id}}</th>
                             <td scope="row">{{$car->name}}</td>

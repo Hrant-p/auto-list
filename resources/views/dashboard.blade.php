@@ -30,7 +30,13 @@
                     @foreach($cars as $car)
                         <tr>
                             <td>
-                                <img src={{$car->img}} alt="car_image" class="img-responsive">
+                                <img
+                                    src="storage/car_image/{{$car->img}}"
+                                    alt="car_image"
+                                    class="img-thumbnail"
+                                    width="200"
+                                    height="175"
+                                >
                             </td>
                             <th scope="row"> {{$car->model_id}}</th>
                             <td scope="row">{{$car->name}}</td>
