@@ -24,4 +24,4 @@ Route::delete('/car/delete/{id}', 'CarController@delete')->name('delete-car');
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
