@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Car;
+use App\Manufacturer;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -28,8 +29,8 @@ class CarController extends Controller
      */
     public function index()
     {
-        $cars = Car::all();
-
+        $cars = Car::with('manufacturer')->get();
+//        dd($cars);
         return view('cars', compact('cars'));
     }
 
@@ -39,7 +40,8 @@ class CarController extends Controller
      */
     public function add()
     {
-        return view('add-car');
+        $models = Manufacturer::all();
+        return view('add-car', $models);
     }
 
     public function store(Request $request)

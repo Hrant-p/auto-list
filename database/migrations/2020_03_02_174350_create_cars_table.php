@@ -19,8 +19,8 @@ class CreateCarsTable extends Migration
             $table->string('img')->default(null);
             $table->string('description', 1000);
             $table->date('year');
-            $table->integer('price');
-            $table->integer('model_id')->unsigned();
+            $table->float('price');
+            $table->unsignedBigInteger('model_id');
             $table->timestamps();
 
             $table->foreign('model_id')->references('id')->on('manufacturers');
